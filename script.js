@@ -20,7 +20,7 @@ const birthdayConfig = {
   music: "assets/music.mp3",
 
   suratUlangTahun:
-`Selamat Ulang Tahun, Sayangku ❤️✨
+    `Selamat Ulang Tahun, Sayangku ❤️✨
 
 Hari ini adalah hari yang sangat istimewa, karena di hari ini sosok terindah yang sangat aku sayangi dilahirkan ke dunia.
 
@@ -70,45 +70,45 @@ const state = { musicPlaying: false, gameRunning: false, gameScore: 0, gameTimer
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-function spawnFloatingHeart(x, y){
-  const emojis = ["❤️","💗","💕","✨","💖"];
+function spawnFloatingHeart(x, y) {
+  const emojis = ["❤️", "💗", "💕", "✨", "💖"];
   const el = document.createElement("span");
   el.className = "spawn-heart";
-  el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
   el.style.left = x + "px";
   el.style.top = y + "px";
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 2600);
 }
 
-function heartsBurstFromButton(evt, count = 10){
+function heartsBurstFromButton(evt, count = 10) {
   const rect = evt.target.getBoundingClientRect();
-  for(let i=0;i<count;i++){
+  for (let i = 0; i < count; i++) {
     setTimeout(() => {
       spawnFloatingHeart(
-        rect.left + rect.width/2 + (Math.random()*80-40),
-        rect.top + (Math.random()*20-10)
+        rect.left + rect.width / 2 + (Math.random() * 80 - 40),
+        rect.top + (Math.random() * 20 - 10)
       );
-    }, i*60);
+    }, i * 60);
   }
 }
 
 /* ============================================================
    AMBIENT BACKGROUND DECORATION
    ============================================================ */
-function buildAmbientDeco(){
+function buildAmbientDeco() {
   const wrap = $("#ambientDeco");
-  const icons = ["🎈","✨","💗","🌸","⭐","🎀"];
-  for(let i=0;i<14;i++){
+  const icons = ["🎈", "✨", "💗", "🌸", "⭐", "🎀"];
+  for (let i = 0; i < 14; i++) {
     const el = document.createElement("span");
-    el.textContent = icons[Math.floor(Math.random()*icons.length)];
+    el.textContent = icons[Math.floor(Math.random() * icons.length)];
     el.style.position = "absolute";
-    el.style.left = Math.random()*100 + "vw";
-    el.style.top = Math.random()*100 + "vh";
-    el.style.fontSize = (1 + Math.random()*1.4) + "rem";
-    el.style.opacity = 0.15 + Math.random()*0.18;
-    el.style.animation = `floatUpDown ${5+Math.random()*5}s ease-in-out infinite`;
-    el.style.animationDelay = (Math.random()*4) + "s";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top = Math.random() * 100 + "vh";
+    el.style.fontSize = (1 + Math.random() * 1.4) + "rem";
+    el.style.opacity = 0.15 + Math.random() * 0.18;
+    el.style.animation = `floatUpDown ${5 + Math.random() * 5}s ease-in-out infinite`;
+    el.style.animationDelay = (Math.random() * 4) + "s";
     wrap.appendChild(el);
   }
 }
@@ -121,55 +121,55 @@ const ctx = canvas.getContext("2d");
 let confettiPieces = [];
 let confettiRunning = false;
 
-function resizeCanvas(){
+function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-function launchConfetti(duration = 2600){
-  const colors = ["#FF6FA0","#E94F87","#C79CF0","#FFD873","#FFFFFF"];
+function launchConfetti(duration = 2600) {
+  const colors = ["#FF6FA0", "#E94F87", "#C79CF0", "#FFD873", "#FFFFFF"];
   const count = 140;
-  confettiPieces = Array.from({length: count}, () => ({
-    x: Math.random()*canvas.width,
-    y: -20 - Math.random()*canvas.height*0.5,
-    w: 6 + Math.random()*6,
-    h: 8 + Math.random()*8,
-    color: colors[Math.floor(Math.random()*colors.length)],
-    speed: 2 + Math.random()*3,
-    drift: (Math.random()-0.5)*2,
-    rot: Math.random()*360,
-    rotSpeed: (Math.random()-0.5)*10,
+  confettiPieces = Array.from({ length: count }, () => ({
+    x: Math.random() * canvas.width,
+    y: -20 - Math.random() * canvas.height * 0.5,
+    w: 6 + Math.random() * 6,
+    h: 8 + Math.random() * 8,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    speed: 2 + Math.random() * 3,
+    drift: (Math.random() - 0.5) * 2,
+    rot: Math.random() * 360,
+    rotSpeed: (Math.random() - 0.5) * 10,
     shape: Math.random() > 0.5 ? "rect" : "circle"
   }));
   confettiRunning = true;
   const endAt = Date.now() + duration;
 
-  function frame(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+  function frame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     confettiPieces.forEach(p => {
       p.y += p.speed;
       p.x += p.drift;
       p.rot += p.rotSpeed;
       ctx.save();
       ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot * Math.PI/180);
+      ctx.rotate(p.rot * Math.PI / 180);
       ctx.fillStyle = p.color;
-      if(p.shape === "rect"){
-        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      if (p.shape === "rect") {
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
       } else {
         ctx.beginPath();
-        ctx.arc(0,0,p.w/2,0,Math.PI*2);
+        ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.restore();
     });
-    if(Date.now() < endAt){
+    if (Date.now() < endAt) {
       requestAnimationFrame(frame);
     } else {
       confettiRunning = false;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   }
   requestAnimationFrame(frame);
@@ -194,7 +194,7 @@ $("#screen-opening").style.transition = "opacity .5s ease";
 /* ============================================================
    HERO TYPING ANIMATION
    ============================================================ */
-function typeHeroText(){
+function typeHeroText() {
   const eyebrow = "To my beloved on their birthday ✨";
   const title = `Happy Birthday, ${birthdayConfig.namaPacar}! 🎂❤️`;
   const sub = birthdayConfig.heroSubtitle;
@@ -205,8 +205,8 @@ function typeHeroText(){
   const titleEl = $("#heroTitle");
   titleEl.textContent = "";
   let i = 0;
-  function typeChar(){
-    if(i <= title.length){
+  function typeChar() {
+    if (i <= title.length) {
       titleEl.textContent = title.slice(0, i);
       i++;
       setTimeout(typeChar, 45);
@@ -216,7 +216,7 @@ function typeHeroText(){
   }
   typeChar();
 }
-function fadeInSubtitle(text){
+function fadeInSubtitle(text) {
   const el = $("#heroSubtitle");
   el.textContent = text;
   el.style.opacity = 0;
@@ -234,7 +234,7 @@ $("#btnScrollNext").addEventListener("click", () => {
 const bgMusic = $("#bgMusic");
 bgMusic.volume = 0.5;
 
-function startMusic(){
+function startMusic() {
   bgMusic.play().then(() => {
     state.musicPlaying = true;
     $("#btnMusic").classList.remove("muted");
@@ -252,7 +252,7 @@ function setupAutoPlayOnInteraction() {
       bgMusic.play().then(() => {
         state.musicPlaying = true;
         $("#btnMusic").classList.remove("muted");
-      }).catch(() => {});
+      }).catch(() => { });
     }
   };
   document.addEventListener("click", playHandler, { once: false });
@@ -261,7 +261,7 @@ function setupAutoPlayOnInteraction() {
 
 $("#btnMusic").addEventListener("click", (e) => {
   e.stopPropagation(); // prevent document click from re-toggling
-  if(state.musicPlaying){
+  if (state.musicPlaying) {
     bgMusic.pause();
     state.musicPlaying = false;
     $("#btnMusic").classList.add("muted");
@@ -269,36 +269,36 @@ $("#btnMusic").addEventListener("click", (e) => {
     bgMusic.play().then(() => {
       state.musicPlaying = true;
       $("#btnMusic").classList.remove("muted");
-    }).catch(()=>{});
+    }).catch(() => { });
   }
 });
 
 /* ============================================================
    COUNTDOWN
    ============================================================ */
-function updateCountdown(){
+function updateCountdown() {
   const target = new Date(birthdayConfig.tanggalUlangTahun).getTime();
   const now = Date.now();
   const diff = target - now;
 
-  if(diff <= 0){
+  if (diff <= 0) {
     $("#countdownWrap").classList.add("hidden");
     $("#countdownDone").classList.remove("hidden");
     launchConfetti(2000);
     clearInterval(countdownInterval);
     return;
   }
-  const d = Math.floor(diff / (1000*60*60*24));
-  const h = Math.floor((diff / (1000*60*60)) % 24);
-  const m = Math.floor((diff / (1000*60)) % 60);
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
   const s = Math.floor((diff / 1000) % 60);
-  $("#cdDays").textContent = String(d).padStart(2,"0");
-  $("#cdHours").textContent = String(h).padStart(2,"0");
-  $("#cdMinutes").textContent = String(m).padStart(2,"0");
-  $("#cdSeconds").textContent = String(s).padStart(2,"0");
+  $("#cdDays").textContent = String(d).padStart(2, "0");
+  $("#cdHours").textContent = String(h).padStart(2, "0");
+  $("#cdMinutes").textContent = String(m).padStart(2, "0");
+  $("#cdSeconds").textContent = String(s).padStart(2, "0");
 }
 let countdownInterval;
-function startCountdown(){
+function startCountdown() {
   updateCountdown();
   countdownInterval = setInterval(updateCountdown, 1000);
 }
@@ -306,13 +306,13 @@ function startCountdown(){
 /* ============================================================
    GALLERY
    ============================================================ */
-function buildGallery(){
+function buildGallery() {
   const grid = $("#galleryGrid");
   grid.innerHTML = "";
   birthdayConfig.foto.forEach((f, idx) => {
     const card = document.createElement("div");
     card.className = "polaroid reveal";
-    card.style.setProperty("--rot", (f.rotate || (idx%2===0?-3:3)) + "deg");
+    card.style.setProperty("--rot", (f.rotate || (idx % 2 === 0 ? -3 : 3)) + "deg");
     card.innerHTML = `
       <div class="tape"></div>
       <div class="photo-box">
@@ -325,7 +325,7 @@ function buildGallery(){
     grid.appendChild(card);
   });
 }
-function openLightbox(src){
+function openLightbox(src) {
   const overlay = document.createElement("div");
   overlay.className = "lightbox-overlay";
   overlay.innerHTML = `<span class="lightbox-close">✕</span><img src="${src}" alt="foto">`;
@@ -336,7 +336,7 @@ function openLightbox(src){
 /* ============================================================
    TIMELINE
    ============================================================ */
-function buildTimeline(){
+function buildTimeline() {
   const wrap = $("#timelineWrap");
   wrap.innerHTML = "";
   birthdayConfig.kenangan.forEach(item => {
@@ -355,7 +355,7 @@ function buildTimeline(){
 /* ============================================================
    VIDEO SOURCE FROM CONFIG
    ============================================================ */
-function setVideoSource(){
+function setVideoSource() {
   const video = $("#birthdayVideo");
   const source = $("#birthdayVideo source");
   source.src = birthdayConfig.video;
@@ -376,7 +376,7 @@ function setVideoSource(){
       bgMusic.play().then(() => {
         state.musicPlaying = true;
         $("#btnMusic").classList.remove("muted");
-      }).catch(()=>{});
+      }).catch(() => { });
       wasPlayingBeforeVideo = false;
     }
   });
@@ -386,7 +386,7 @@ function setVideoSource(){
       bgMusic.play().then(() => {
         state.musicPlaying = true;
         $("#btnMusic").classList.remove("muted");
-      }).catch(()=>{});
+      }).catch(() => { });
       wasPlayingBeforeVideo = false;
     }
   });
@@ -395,20 +395,20 @@ function setVideoSource(){
 /* ============================================================
    LOVE LETTER
    ============================================================ */
-function setupLetter(){
+function setupLetter() {
   $("#letterText").textContent = birthdayConfig.suratUlangTahun;
   $("#letterSignoff").textContent = birthdayConfig.suratPenutup;
 
-  $("#letterEnvelope").addEventListener("click", function(){
+  $("#letterEnvelope").addEventListener("click", function () {
     this.classList.add("opened");
     setTimeout(() => {
       $("#letterPaper").classList.remove("hidden");
-      $("#letterPaper").scrollIntoView({ behavior:"smooth", block:"center" });
+      $("#letterPaper").scrollIntoView({ behavior: "smooth", block: "center" });
       revealLetterParagraphs();
     }, 550);
   });
 }
-function revealLetterParagraphs(){
+function revealLetterParagraphs() {
   const el = $("#letterText");
   el.style.opacity = 0;
   el.style.transition = "opacity 1s ease";
@@ -418,12 +418,12 @@ function revealLetterParagraphs(){
 /* ============================================================
    SURPRISE CARDS → MODAL
    ============================================================ */
-function setupSurpriseCards(){
+function setupSurpriseCards() {
   $$(".surprise-card").forEach(card => {
     card.addEventListener("click", (e) => {
       const key = card.dataset.surprise;
       const data = birthdayConfig.surpriseCards[key];
-      if(!data) return;
+      if (!data) return;
       openModal(`
         <span class="modal-icon">${data.icon}</span>
         <h3>${data.title}</h3>
@@ -433,13 +433,13 @@ function setupSurpriseCards(){
     });
   });
 }
-function openModal(html){
+function openModal(html) {
   $("#modalContent").innerHTML = html;
   $("#modalOverlay").classList.remove("hidden");
 }
 $("#modalClose").addEventListener("click", () => $("#modalOverlay").classList.add("hidden"));
 $("#modalOverlay").addEventListener("click", (e) => {
-  if(e.target.id === "modalOverlay") $("#modalOverlay").classList.add("hidden");
+  if (e.target.id === "modalOverlay") $("#modalOverlay").classList.add("hidden");
 });
 
 /* ============================================================
@@ -447,7 +447,7 @@ $("#modalOverlay").addEventListener("click", (e) => {
    ============================================================ */
 $("#btnRandomLove").addEventListener("click", (e) => {
   const msgs = birthdayConfig.randomMessages;
-  const msg = msgs[Math.floor(Math.random()*msgs.length)];
+  const msg = msgs[Math.floor(Math.random() * msgs.length)];
   $("#randomLoveText").textContent = msg;
   heartsBurstFromButton(e, 6);
 });
@@ -460,8 +460,8 @@ const GAME_DURATION = 15;
 
 $("#btnStartGame").addEventListener("click", startGame);
 
-function startGame(){
-  if(state.gameRunning) return;
+function startGame() {
+  if (state.gameRunning) return;
   state.gameRunning = true;
   state.gameScore = 0;
   $("#gameScore").textContent = `Skor: 0 / ${GAME_GOAL}`;
@@ -478,7 +478,7 @@ function startGame(){
   state.gameTimer = setInterval(() => {
     timeLeft--;
     $("#gameTimer").textContent = `Waktu: ${timeLeft}s`;
-    if(timeLeft <= 0){
+    if (timeLeft <= 0) {
       clearInterval(state.gameTimer);
       clearInterval(spawnInterval);
       endGame();
@@ -486,21 +486,21 @@ function startGame(){
   }, 1000);
 }
 
-function spawnGameHeart(){
+function spawnGameHeart() {
   const arena = $("#gameArena");
-  if(!arena || !state.gameRunning) return;
+  if (!arena || !state.gameRunning) return;
   const heart = document.createElement("span");
   heart.className = "game-heart";
   heart.textContent = "❤️";
   const maxX = arena.clientWidth - 36;
   const maxY = arena.clientHeight - 36;
-  heart.style.left = Math.max(0, Math.random()*maxX) + "px";
-  heart.style.top = Math.max(0, Math.random()*maxY) + "px";
+  heart.style.left = Math.max(0, Math.random() * maxX) + "px";
+  heart.style.top = Math.max(0, Math.random() * maxY) + "px";
   heart.addEventListener("click", () => {
     state.gameScore++;
     $("#gameScore").textContent = `Skor: ${state.gameScore} / ${GAME_GOAL}`;
     heart.remove();
-    if(state.gameScore >= GAME_GOAL){
+    if (state.gameScore >= GAME_GOAL) {
       clearInterval(state.gameTimer);
       endGame(true);
     }
@@ -509,14 +509,14 @@ function spawnGameHeart(){
   setTimeout(() => heart.remove(), 2600);
 }
 
-function endGame(won){
+function endGame(won) {
   state.gameRunning = false;
   $("#btnStartGame").textContent = "Main Lagi 🎮";
   $("#btnStartGame").disabled = false;
   $("#gameArena").innerHTML = "";
   const resultEl = $("#gameResult");
   resultEl.classList.remove("hidden");
-  if(won || state.gameScore >= GAME_GOAL){
+  if (won || state.gameScore >= GAME_GOAL) {
     resultEl.textContent = "Yeay! Kamu berhasil menang ❤️ Tapi sebenarnya yang menang tetap aku, karena aku punya kamu. 😆❤️";
     launchConfetti(1800);
   } else {
@@ -532,10 +532,10 @@ $("#btnFinalSurprise").addEventListener("click", (e) => {
   $("#finalReveal").classList.remove("hidden");
   $("#btnFinalSurprise").classList.add("hidden");
   launchConfetti(3200);
-  for(let i=0;i<20;i++){
+  for (let i = 0; i < 20; i++) {
     setTimeout(() => {
-      spawnFloatingHeart(Math.random()*window.innerWidth, window.innerHeight - 40);
-    }, i*90);
+      spawnFloatingHeart(Math.random() * window.innerWidth, window.innerHeight - 40);
+    }, i * 90);
   }
 });
 $("#btnReplay").addEventListener("click", () => {
@@ -546,17 +546,17 @@ $("#btnReplay").addEventListener("click", () => {
   $("#letterEnvelope").classList.remove("opened");
   $("#letterPaper").classList.add("hidden");
   $("#screen-opening").classList.remove("hidden");
-  requestAnimationFrame(() => { $("#screen-opening").style.opacity = "1"; $("#screen-opening").style.pointerEvents="auto"; });
+  requestAnimationFrame(() => { $("#screen-opening").style.opacity = "1"; $("#screen-opening").style.pointerEvents = "auto"; });
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 /* ============================================================
    SCROLL REVEAL OBSERVER
    ============================================================ */
-function setupScrollReveal(){
+function setupScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         entry.target.classList.add("in-view");
       }
     });
@@ -567,7 +567,7 @@ function setupScrollReveal(){
 /* ============================================================
    INIT
    ============================================================ */
-function init(){
+function init() {
   buildAmbientDeco();
   buildGallery();
   buildTimeline();
