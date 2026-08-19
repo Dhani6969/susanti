@@ -1,0 +1,6 @@
+Ganti file-file di folder ini dengan:
+- foto1.jpg s/d foto5.jpg
+- video-ultah.mp4
+- music.mp3
+
+Lihat README.md di root folder untuk panduan lengkap.
