@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Happy Birthday 💗</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Ambient decorations layer (present on every screen) -->
+<div class="ambient-deco" id="ambientDeco" aria-hidden="true"></div>
+
+<!-- ========================= -->
+<!-- SCREEN 0 — OPENING -->
+<!-- ========================= -->
+<section id="screen-opening" class="screen screen-opening active-screen">
+  <div class="opening-sky" aria-hidden="true">
+    <span class="cloud c1">☁️</span>
+    <span class="cloud c2">☁️</span>
+    <span class="cloud c3">☁️</span>
+    <span class="twinkle t1">✨</span>
+    <span class="twinkle t2">⭐</span>
+    <span class="twinkle t3">✨</span>
+  </div>
+  <div class="opening-content">
+    <p class="opening-eyebrow">psst… kemarilah sebentar</p>
+    <h1 class="opening-title">Someone special<br>has a birthday today<span class="deco-inline"> 🎂💗</span></h1>
+    <button id="btnOpenGift" class="btn-primary btn-glow">Buka Hadiahnya 💝</button>
+  </div>
+</section>
+
+<!-- ========================= -->
+<!-- MAIN EXPERIENCE (hidden until gift opened) -->
+<!-- ========================= -->
+<div id="mainExperience" class="main-experience">
+
+  <!-- confetti / balloons burst layer, triggered on open -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Floating music button -->
+  <button id="btnMusic" class="floating-music" aria-label="Toggle music">🎵</button>
+
+  <!-- ===== HERO / GREETING ===== -->
+  <section id="section-hero" class="screen section-hero">
+    <div class="hero-decor" aria-hidden="true">
+      <span class="balloon b1">🎈</span>
+      <span class="balloon b2">🎈</span>
+      <span class="balloon b3">🎈</span>
+      <span class="heart-float h1">❤️</span>
+      <span class="heart-float h2">💗</span>
+      <span class="heart-float h3">💕</span>
+      <span class="sparkle s1">✨</span>
+      <span class="sparkle s2">✨</span>
+      <span class="ribbon r1">🎀</span>
+    </div>
+    <p class="hero-eyebrow" id="heroEyebrow"></p>
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <p class="hero-subtitle" id="heroSubtitle"></p>
+    <button class="btn-secondary" id="btnScrollNext">Ada sesuatu untuk kamu 💌</button>
+    <div class="scroll-cue" aria-hidden="true">↓</div>
+  </section>
+
+  <!-- ===== COUNTDOWN ===== -->
+  <section id="section-countdown" class="screen section-block">
+    <h2 class="section-title">Menuju Hari Spesialmu ⏳</h2>
+    <div id="countdownWrap" class="countdown-wrap">
+      <div class="countdown-box"><span id="cdDays">00</span><small>Hari</small></div>
+      <div class="countdown-box"><span id="cdHours">00</span><small>Jam</small></div>
+      <div class="countdown-box"><span id="cdMinutes">00</span><small>Menit</small></div>
+      <div class="countdown-box"><span id="cdSeconds">00</span><small>Detik</small></div>
+    </div>
+    <p id="countdownDone" class="countdown-done hidden">IT'S YOUR SPECIAL DAY! 🎉🎂❤️</p>
+  </section>
+
+  <!-- ===== PHOTO GALLERY ===== -->
+  <section id="section-gallery" class="screen section-block">
+    <h2 class="section-title">Our Photo Scrapbook 📸</h2>
+    <p class="section-sub">geser dan klik foto-fotonya, sayang ✨</p>
+    <div id="galleryGrid" class="gallery-grid"></div>
+  </section>
+
+  <!-- ===== VIDEO ===== -->
+  <section id="section-video" class="screen section-block">
+    <h2 class="section-title">A Little Video For You 🎥❤️</h2>
+    <div class="video-frame">
+      <video id="birthdayVideo" controls playsinline poster="">
+        <source src="assets/video-ultah.mp4" type="video/mp4">
+        Browser kamu tidak mendukung video ini.
+      </video>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <section id="section-timeline" class="screen section-block">
+    <h2 class="section-title">Our Little Memories 📸</h2>
+    <div id="timelineWrap" class="timeline-wrap"></div>
+  </section>
+
+  <!-- ===== LOVE LETTER ===== -->
+  <section id="section-letter" class="screen section-block">
+    <h2 class="section-title">A Letter For You 💌</h2>
+    <div class="letter-envelope" id="letterEnvelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-body">
+        <span class="envelope-seal">💌</span>
+        <p class="envelope-hint">tap untuk buka suratnya</p>
+      </div>
+    </div>
+    <div class="letter-paper hidden" id="letterPaper">
+      <p id="letterText" class="letter-text"></p>
+      <p class="letter-signoff" id="letterSignoff"></p>
+    </div>
+  </section>
+
+  <!-- ===== SURPRISE CARDS ===== -->
+  <section id="section-surprise" class="screen section-block">
+    <h2 class="section-title">A Few Little Surprises 🎁</h2>
+    <div class="surprise-grid" id="surpriseGrid">
+      <button class="surprise-card" data-surprise="secret">💌<span>Pesan Rahasia</span></button>
+      <button class="surprise-card" data-surprise="gift">🎁<span>Open Your Gift</span></button>
+      <button class="surprise-card" data-surprise="love">❤️<span>Why I Love You</span></button>
+      <button class="surprise-card" data-surprise="memories">📸<span>Our Memories</span></button>
+      <button class="surprise-card" data-surprise="wish">🎂<span>Birthday Wish</span></button>
+    </div>
+  </section>
+
+  <!-- ===== RANDOM LOVE MESSAGE ===== -->
+  <section id="section-random" class="screen section-block">
+    <h2 class="section-title">Kangen Aku? 💗</h2>
+    <button id="btnRandomLove" class="btn-primary">Klik kalau kamu kangen aku 💗</button>
+    <p id="randomLoveText" class="random-love-text"></p>
+  </section>
+
+  <!-- ===== MINI GAME ===== -->
+  <section id="section-game" class="screen section-block">
+    <h2 class="section-title">Catch the Hearts ❤️</h2>
+    <p class="section-sub">tangkap 10 hati dalam 15 detik yuk!</p>
+    <div class="game-hud">
+      <span id="gameScore">Skor: 0 / 10</span>
+      <span id="gameTimer">Waktu: 15s</span>
+      <button id="btnStartGame" class="btn-secondary">Mulai 🎮</button>
+    </div>
+    <div id="gameArena" class="game-arena"></div>
+    <p id="gameResult" class="game-result hidden"></p>
+  </section>
+
+  <!-- ===== FINAL SURPRISE ===== -->
+  <section id="section-final" class="screen section-block section-final">
+    <p class="final-pretext">Before you leave… 💗</p>
+    <button id="btnFinalSurprise" class="btn-primary btn-glow">One Last Surprise 🎁</button>
+    <div id="finalReveal" class="final-reveal hidden">
+      <h2 class="final-title">Happy Birthday,<br>My Favorite Person ❤️🎂</h2>
+      <p class="final-text">I hope you know how special you are to me.</p>
+      <p class="final-text final-text-strong">I love you. ❤️</p>
+      <button id="btnReplay" class="btn-secondary">Replay Our Story 🔄</button>
+    </div>
+  </section>
+
+</div><!-- /mainExperience -->
+
+<!-- ===== MODAL (for surprise cards) ===== -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Tutup">✕</button>
+    <div id="modalContent" class="modal-content"></div>
+  </div>
+</div>
+
+<!-- Background music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
